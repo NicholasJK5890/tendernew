@@ -1,0 +1,72 @@
+{
+  "category": "TMT Steel",
+  "title": "High Strength Deformed Steel Bars (Fe 500D / Fe 550D)",
+  "applicable_is_standards": [
+    {
+      "code": "IS 1786:2008",
+      "title": "High strength deformed steel bars and wires for concrete reinforcement",
+      "mandatory": true,
+      "authority": "Bureau of Indian Standards (BIS)"
+    },
+    {
+      "code": "IS 1608",
+      "title": "Metallic materials — Tensile testing at ambient temperature",
+      "mandatory": true,
+      "authority": "Bureau of Indian Standards (BIS)"
+    }
+  ],
+  "verification_sources": [
+    {
+      "name": "BIS Manakonline Portal",
+      "type": "licence_registry",
+      "url": "https://www.manakonline.in/MANAK/searchLicence",
+      "checks": ["IS 1786 Licence Validity", "Grade Endorsement (Fe 500D/550D)"]
+    },
+    {
+      "name": "GST Portal",
+      "type": "tax_registry",
+      "url": "https://services.gst.gov.in/services/searchtp",
+      "checks": ["GSTIN Status Active", "Iron & Steel HSN 7214 Alignment"]
+    }
+  ],
+  "standard_parameters": [
+    {
+      "parameter": "BIS Licence IS 1786 Certification",
+      "operator": "eq",
+      "target_value": "VALID",
+      "unit": "status",
+      "mandatory": true,
+      "description": "Primary steel producer or conversion agent holding active BIS certification."
+    },
+    {
+      "parameter": "0.2% Proof Stress / Yield Strength",
+      "operator": "min",
+      "target_value": 500,
+      "unit": "MPa",
+      "mandatory": true,
+      "description": "Yield stress minimum 500 MPa for Fe 500D grade."
+    },
+    {
+      "parameter": "Elongation at Break",
+      "operator": "min",
+      "target_value": 16.0,
+      "unit": "%",
+      "mandatory": true,
+      "description": "Percentage elongation minimum 16.0%."
+    },
+    {
+      "parameter": "Carbon Equivalent (CE)",
+      "operator": "max",
+      "target_value": 0.42,
+      "unit": "%",
+      "mandatory": false,
+      "description": "Maximum carbon equivalent 0.42% for weldability."
+    }
+  ],
+  "benchmark_price_range": {
+    "min": 52000.0,
+    "max": 61000.0,
+    "unit": "INR / Metric Tonne",
+    "suspect_low_threshold": 48000.0
+  }
+}

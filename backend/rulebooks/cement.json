@@ -1,0 +1,114 @@
+{
+  "category": "Cement",
+  "title": "Ordinary Portland Cement (OPC) & Pozzolana Portland Cement (PPC)",
+  "applicable_is_standards": [
+    {
+      "code": "IS 269:2015",
+      "title": "Ordinary Portland Cement — Specification (33, 43 and 53 Grade)",
+      "mandatory": true,
+      "authority": "Bureau of Indian Standards (BIS)"
+    },
+    {
+      "code": "IS 4031",
+      "title": "Methods of physical tests for hydraulic cement",
+      "mandatory": true,
+      "authority": "Bureau of Indian Standards (BIS)"
+    },
+    {
+      "code": "IS 1489",
+      "title": "Portland Pozzolana Cement Specification",
+      "mandatory": false,
+      "authority": "Bureau of Indian Standards (BIS)"
+    }
+  ],
+  "verification_sources": [
+    {
+      "name": "BIS Manakonline Portal",
+      "type": "licence_registry",
+      "url": "https://www.manakonline.in/MANAK/searchLicence",
+      "checks": ["Licence Number Validity", "Valid IS Standard Mark", "Manufacturer Location", "Active Status"]
+    },
+    {
+      "name": "GST Common Portal",
+      "type": "tax_registry",
+      "url": "https://services.gst.gov.in/services/searchtp",
+      "checks": ["Active GSTIN", "Trade Name Match", "Filing Return Frequency"]
+    },
+    {
+      "name": "MCA21 Ministry of Corporate Affairs",
+      "type": "corporate_registry",
+      "url": "https://www.mca.gov.in/mcafoportal/viewCompanyMasterData.do",
+      "checks": ["Active Company Status", "Authorized Directors", "Charges Registered"]
+    },
+    {
+      "name": "GeM GeM Price Benchmark",
+      "type": "pricing_benchmark",
+      "url": "https://gem.gov.in/market-prices",
+      "checks": ["Median Market Price Check (₹350 - ₹385 / 50kg bag)"]
+    }
+  ],
+  "standard_parameters": [
+    {
+      "parameter": "BIS Licence IS 269 Certification",
+      "operator": "eq",
+      "target_value": "VALID",
+      "unit": "status",
+      "mandatory": true,
+      "description": "Manufacturer must possess an active, non-expired BIS licence under IS 269."
+    },
+    {
+      "parameter": "Compressive Strength 28 Days",
+      "operator": "min",
+      "target_value": 43,
+      "unit": "MPa",
+      "mandatory": true,
+      "description": "Minimum 28-day compressive strength for 43/53 grade OPC as per IS 4031."
+    },
+    {
+      "parameter": "Initial Setting Time",
+      "operator": "min",
+      "target_value": 30,
+      "unit": "minutes",
+      "mandatory": true,
+      "description": "Initial setting time not less than 30 minutes as per IS 269 Clause 6.3."
+    },
+    {
+      "parameter": "Final Setting Time",
+      "operator": "max",
+      "target_value": 600,
+      "unit": "minutes",
+      "mandatory": true,
+      "description": "Final setting time not exceeding 600 minutes."
+    },
+    {
+      "parameter": "Fineness (Specific Surface)",
+      "operator": "min",
+      "target_value": 225,
+      "unit": "m2/kg",
+      "mandatory": false,
+      "description": "Specific surface by Blaine air permeability method minimum 225 m2/kg."
+    },
+    {
+      "parameter": "Soundness (Le-Chatelier)",
+      "operator": "max",
+      "target_value": 10,
+      "unit": "mm",
+      "mandatory": true,
+      "description": "Soundness expansion by Le-Chatelier method shall not exceed 10 mm."
+    },
+    {
+      "parameter": "Insoluble Residue",
+      "operator": "max",
+      "target_value": 4.0,
+      "unit": "%",
+      "mandatory": false,
+      "description": "Insoluble residue maximum 4.0 percent by mass."
+    }
+  ],
+  "benchmark_price_range": {
+    "min": 330.0,
+    "max": 395.0,
+    "unit": "INR / 50kg bag",
+    "suspect_low_threshold": 300.0
+  }
+}

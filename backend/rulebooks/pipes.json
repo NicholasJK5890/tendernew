@@ -1,0 +1,64 @@
+{
+  "category": "PVC Pipes",
+  "title": "Unplasticized PVC Pipes for Potable Water Supplies & Agriculture",
+  "applicable_is_standards": [
+    {
+      "code": "IS 4985:2021",
+      "title": "Unplasticized polyvinyl chloride pipes for potable water supplies",
+      "mandatory": true,
+      "authority": "Bureau of Indian Standards (BIS)"
+    },
+    {
+      "code": "IS 12235",
+      "title": "Methods of test for unplasticized PVC pipes",
+      "mandatory": true,
+      "authority": "Bureau of Indian Standards (BIS)"
+    }
+  ],
+  "verification_sources": [
+    {
+      "name": "BIS Manakonline Portal",
+      "type": "licence_registry",
+      "url": "https://www.manakonline.in/MANAK/searchLicence",
+      "checks": ["IS 4985 Licence Validity", "Class & Pressure Rating Approval"]
+    },
+    {
+      "name": "CIPET Testing Portal",
+      "type": "testing_lab",
+      "url": "https://www.cipet.gov.in/test-reports",
+      "checks": ["Hydrostatic Pressure Test Clearance", "Reversion Resistance"]
+    }
+  ],
+  "standard_parameters": [
+    {
+      "parameter": "BIS Licence IS 4985 Certification",
+      "operator": "eq",
+      "target_value": "VALID",
+      "unit": "status",
+      "mandatory": true,
+      "description": "Active BIS mark licence under IS 4985."
+    },
+    {
+      "parameter": "Short-Term Hydrostatic Pressure (1h)",
+      "operator": "min",
+      "target_value": 4.19,
+      "unit": "MPa",
+      "mandatory": true,
+      "description": "Withstands 1 hour pressure test at 27 deg C without burst."
+    },
+    {
+      "parameter": "Longitudinal Reversion",
+      "operator": "max",
+      "target_value": 5.0,
+      "unit": "%",
+      "mandatory": false,
+      "description": "Longitudinal reversion maximum 5.0 percent after 150 deg C immersion."
+    }
+  ],
+  "benchmark_price_range": {
+    "min": 420.0,
+    "max": 580.0,
+    "unit": "INR / 6m Length (110mm 6kgf)",
+    "suspect_low_threshold": 380.0
+  }
+}

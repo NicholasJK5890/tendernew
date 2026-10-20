@@ -1,0 +1,70 @@
+{
+  "category": "Services",
+  "title": "IT Consulting & Technical Advisory Services (QCBS Evaluation)",
+  "applicable_is_standards": [
+    {
+      "code": "ISO 9001:2015",
+      "title": "Quality Management Systems",
+      "mandatory": true,
+      "authority": "International Organization for Standardization / NABCB"
+    },
+    {
+      "code": "ISO/IEC 27001",
+      "title": "Information Security Management Systems",
+      "mandatory": true,
+      "authority": "CERT-In / STQC"
+    },
+    {
+      "code": "CMMI Level 3+",
+      "title": "Capability Maturity Model Integration (Development / Services)",
+      "mandatory": false,
+      "authority": "ISACA / CMMI Institute"
+    }
+  ],
+  "verification_sources": [
+    {
+      "name": "IAF CertSearch",
+      "type": "accreditation_registry",
+      "url": "https://www.iafcertsearch.org",
+      "checks": ["ISO 9001 & ISO 27001 Active Status", "Accredited Certification Body Verification"]
+    },
+    {
+      "name": "MCA & Epfo Portal",
+      "type": "compliance_registry",
+      "url": "https://www.epfindia.gov.in",
+      "checks": ["Employee count threshold (>50 IT professionals)", "MCA Annual Return filings"]
+    }
+  ],
+  "standard_parameters": [
+    {
+      "parameter": "ISO 9001 & 27001 Certification",
+      "operator": "eq",
+      "target_value": "VALID",
+      "unit": "status",
+      "mandatory": true,
+      "description": "Valid accredited ISO 9001:2015 and ISO/IEC 27001 certifications."
+    },
+    {
+      "parameter": "Annual IT Turnover",
+      "operator": "min",
+      "target_value": 50000000,
+      "unit": "INR",
+      "mandatory": true,
+      "description": "Minimum average annual turnover of ₹5 Crores over past 3 fiscal years."
+    },
+    {
+      "parameter": "Past Govt Project Deployments",
+      "operator": "min",
+      "target_value": 3,
+      "unit": "projects",
+      "mandatory": true,
+      "description": "At least 3 similar government/PSU digitalization engagements completed."
+    }
+  ],
+  "evaluation_framework": {
+    "method": "QCBS",
+    "technical_weight": 0.70,
+    "financial_weight": 0.30,
+    "formula": "Final Score = (0.70 * TechScore) + (0.30 * 100 * (LowestBidPrice / BidPrice))"
+  }
+}
