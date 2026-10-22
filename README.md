@@ -153,9 +153,7 @@ tendernew/
     │   ├── services/api.ts      # API client
     │   └── types/               # TypeScript types
     └── public/static/evidence/  # Evidence images served by the CDN
-```
 
----
 
 ## Known limitations
 
