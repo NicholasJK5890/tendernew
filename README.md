@@ -90,22 +90,8 @@ Copy `backend/.env.example` to `backend/.env` for local development. Nothing bel
 
 Frontend (build-time, optional): `VITE_API_BASE` — point the UI at a separately hosted backend. Defaults to same-origin `/api`.
 
----
 
-## Deploying to Vercel
 
-One Vercel project serves both the React app (CDN) and the FastAPI backend (serverless function under `/api`).
-
-1. Push the repo to GitHub.
-2. In Vercel: **Add New → Project →** import the repo.
-3. Keep **Root Directory** as the repo root (`./`), set **Framework Preset** to **Other**, and leave the build settings alone (`vercel.json` configures them).
-4. Deploy, then open `https://<your-app>.vercel.app/api/health` — it should return JSON.
-
-**How it is wired:** `vercel.json` builds `frontend/` into `frontend/dist` and rewrites `/api/*` to `api/index.py`, which mounts `backend/main.py` under `/api`. Python is pinned to 3.12 and `requirements.txt` uses exact tested versions.
-
-**Database on Vercel:** the function filesystem is read-only. Without a database URL, TenderLens uses SQLite in `/tmp`, which re-seeds on every cold start — data does **not** persist and is not shared between instances. That is fine for a demo. For persistence, add a hosted Postgres (Vercel Marketplace → Neon or Supabase) so `DATABASE_URL` / `POSTGRES_URL` is set, then redeploy. Tables and seed data are created automatically on first request.
-
----
 
 ## Demo walkthrough (3 minutes)
 
