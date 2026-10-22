@@ -5,8 +5,7 @@
 
 TenderLens is a working prototype that checks what bidders *claim* against what official registries *say*. Instead of trusting self-declarations, it cross-examines each bid against BIS (Manakonline) licences, GST status, MCA company records and GeM price benchmarks, then ranks the bids with a fully deterministic rules engine.
 
-> **No API keys, accounts or paid services are needed to run or deploy TenderLens.**
-> Out of the box it runs in **Demo Mode** with realistic seeded data and cached registry evidence (clearly labelled "cached demo evidence" in the UI). Keys are only needed if you want to switch individual features to *Live Mode* — see [Demo Mode vs Live Mode](#demo-mode-vs-live-mode).
+
 
 ---
 
