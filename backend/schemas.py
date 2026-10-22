@@ -1,6 +1,7 @@
 import datetime
+import json
 from typing import List, Optional, Dict, Any
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
 # User
 class UserBase(BaseModel):
@@ -116,6 +117,21 @@ class EvidenceOut(BaseModel):
     raw_data: Dict[str, Any] = {}
     captured_at: datetime.datetime
     is_live: bool = False
+
+    # raw_data is persisted as a JSON string in the DB; parse it on the way out.
+    @field_validator("raw_data", mode="before")
+    @classmethod
+    def _parse_raw_data(cls, v):
+        if v is None or v == "":
+            return {}
+        if isinstance(v, (str, bytes)):
+            try:
+                parsed = json.loads(v)
+            except (ValueError, TypeError):
+                return {}
+            return parsed if isinstance(parsed, dict) else {"value": parsed}
+        return v
+
     class Config:
         from_attributes = True
 

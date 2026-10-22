@@ -56,6 +56,29 @@ DATABASE_URL=sqlite:///./tenderlens.db
 
 ---
 
+## ☁️ Deploying to Vercel (single project — recommended)
+
+One Vercel project serves both the React app (CDN) and the FastAPI backend (serverless function under `/api`).
+
+1. Push this repo to GitHub (or run `vercel` from the repo root).
+2. In Vercel: **Add New → Project → import the repo**. Keep **Root Directory = repo root** (not `frontend/` or `backend/`). Framework Preset: **Other**. Leave Build/Install/Output settings alone — `vercel.json` sets them.
+3. Deploy. Check `https://<your-app>.vercel.app/api/health` returns JSON, then open the site.
+
+**How it is wired**
+- `vercel.json` builds `frontend/` → `frontend/dist`, and rewrites `/api/*` to `api/index.py`.
+- `api/index.py` imports `backend/main.py` and mounts it under `/api`.
+- Evidence screenshots are served from `frontend/public/static/evidence/`.
+- Python is pinned to 3.12 (`.python-version`) and `requirements.txt` has exact tested versions.
+
+**Database (important)** — Vercel functions have a read-only filesystem.
+- With no env vars the app falls back to SQLite in `/tmp`: it auto-seeds on every cold start and **data does not persist** (and is not shared between function instances). Fine for a demo.
+- For persistence, add a hosted Postgres (Vercel Marketplace → Neon/Supabase) and set `DATABASE_URL` (or `POSTGRES_URL`) in Project → Settings → Environment Variables, then redeploy. Tables are created and seeded automatically on first request.
+- Optional: `TINYFISH_API_KEY`, `LLM_API_KEY`, `LLM_API_URL`, `LLM_MODEL` as described above.
+
+**Two-project layout (optional):** deploy `backend/` and `frontend/` as separate Vercel projects (each with its own Root Directory). Edit the backend URL in `frontend/vercel.json` to your backend's domain.
+
+---
+
 ## ⏱️ 3-Minute Hackathon Demo Script
 
 Follow this step-by-step walkthrough to experience the end-to-end autonomous verification pipeline:

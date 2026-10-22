@@ -1,8 +1,12 @@
 {
-    "rewrites": [
-        {
-            "source": "/api/:path*",
-            "destination": "https://tenderlens-backend.vercel.app/:path*"
-        }
-    ]
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "https://tenderlens-backend.vercel.app/:path*"
+    },
+    {
+      "source": "/((?!api/|static/|assets/|favicon\\.svg|icons\\.svg).*)",
+      "destination": "/index.html"
+    }
+  ]
 }

@@ -3,7 +3,9 @@ import {
   Notification, AuditLog, Rulebook, TenderMatchResult
 } from '../types';
 
-const API_BASE = '/api';
+// Defaults to same-origin '/api' (Vercel rewrite / Vite dev proxy).
+// Set VITE_API_BASE (e.g. https://my-backend.vercel.app) to call a separately hosted backend.
+const API_BASE = ((import.meta as any).env?.VITE_API_BASE as string | undefined)?.replace(/\/$/, '') || '/api';
 
 // Helper to get selected demo user email from localStorage
 export const getCurrentUserEmail = (): string => {

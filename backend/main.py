@@ -32,12 +32,27 @@ app = FastAPI(
 )
 
 # Auto-initialize database schema and seed if empty
-try:
+def _init_database():
     Base.metadata.create_all(bind=engine)
     with SessionLocal() as init_db:
         if init_db.query(User).count() == 0:
             import seed
             seed.seed_database(drop_existing=False)
+
+try:
+    if engine.dialect.name == "postgresql":
+        # Serverless can cold-start several instances at once; serialise first-time
+        # schema creation + seeding across them with a Postgres advisory lock.
+        from sqlalchemy import text
+        with engine.connect() as _lock_conn:
+            _lock_conn.execute(text("SELECT pg_advisory_lock(727200123)"))
+            try:
+                _init_database()
+            finally:
+                _lock_conn.execute(text("SELECT pg_advisory_unlock(727200123)"))
+                _lock_conn.commit()
+    else:
+        _init_database()
 except Exception as e:
     print(f"Database auto-init note: {e}")
 
@@ -51,8 +66,11 @@ app.add_middleware(
 )
 
 # Static files for evidence screenshots and generated PDF reports
-static_dir = os.path.join(os.path.dirname(__file__), "static")
-os.makedirs(os.path.join(static_dir, "evidence"), exist_ok=True)
+static_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "static")
+try:
+    os.makedirs(os.path.join(static_dir, "evidence"), exist_ok=True)
+except OSError:
+    pass  # read-only filesystem (e.g. Vercel) - bundled files are already there
 reports_dir = "/tmp/reports" if os.environ.get("VERCEL") else os.path.join(static_dir, "reports")
 try:
     os.makedirs(reports_dir, exist_ok=True)
@@ -546,7 +564,11 @@ async def run_evaluation(
         b.evaluated_at = now
 
         # Delete old checks and save freshly executed agent checks
-        db.query(VerificationCheck).filter(VerificationCheck.bid_id == b.id).delete()
+        # Use ORM deletes (not bulk query.delete()) so child Evidence rows are
+        # removed through the relationship cascade; otherwise the FK constraint fails.
+        for old_chk in db.query(VerificationCheck).filter(VerificationCheck.bid_id == b.id).all():
+            db.delete(old_chk)
+        db.flush()
         for chk in res["checks"]:
             vc = VerificationCheck(
                 bid_id=b.id,
