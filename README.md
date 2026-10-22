@@ -48,7 +48,7 @@ TenderLens is a working prototype that checks what bidders *claim* against what 
 | Compliance rules and ranking | Deterministic Python | Deterministic Python (never delegated to an LLM) |
 | Data | Seeded Indian procurement tenders and bids | Same |
 
-So the answer to "do I need an API key?" is **no**. Add one only if you want that specific feature to run live.
+
 
 ---
 
